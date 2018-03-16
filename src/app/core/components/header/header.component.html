@@ -1,0 +1,84 @@
+
+<header id="header">
+  <div class="header-top">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <ul class="top-link-left">
+            <li><i class="fas fa-phone-square"></i> Call us at (+91)-9911201744</li>
+            <li><i class="far fa-envelope"></i> Email us at domain@domain.com</li>
+          </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <ul class="nav justify-content-end">
+            <ng-template #anonymousUser>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/login"><i class="fas fa-user-circle"></i>Login</a>
+              </li>
+            </ng-template>
+            <li
+              routerLinkActive="active"
+              class="nav-item dropdown"
+              ngbDropdown
+              *ngIf="appUser; else anonymousUser">
+              <a ngbDropdownToggle class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-circle"></i>{{appUser.name || appUser.displayName}}
+              </a>
+              <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" routerLink="/my/orders">My Orders</a>
+                <ng-container *ngIf="appUser.isAdmin">
+                  <a class="dropdown-item" routerLink="/admin/orders">Dashboard</a>
+                  <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
+                  <a class="dropdown-item" routerLink="/admin/products">Manage Products</a>
+                </ng-container>
+                <a class="dropdown-item" (click)="logout()">Log Out</a>
+              </div>
+            </li>
+            <li class="nav-item"><a class="nav-link" routerLink="/signup"><i class="fas fa-user-plus"></i>Sign Up</a></li>
+            <li class="nav-item"><a class="nav-link" href=""><i class="fas fa-gift"></i>Gift Certificates</a></li>
+            <li class="nav-item"><a class="nav-link">
+                <i class="far fa-heart"></i>
+                <span class="badge badge-warning badge-pill">0</span>
+              </a>
+            </li>
+            <li class="nav-item"><a class="nav-link" routerLink="/shopping-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span
+                  *ngIf="cart$ | async as cart"
+                  class="badge badge-warning badge-pill">
+                      {{cart.totalItemCount}}
+                    </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-mid">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+          <figure class="logo" >
+            <a routerLink="/">
+              <img src="../../../../assets/images/logo.png"/>
+            </a>
+          </figure>
+        </div>
+        <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+          <ul class="navigation">
+            <li><a href="">All Categories</a></li>
+            <li><a href="">Bread</a></li>
+            <li><a href="">Dairy</a></li>
+            <li><a href="">Fruits</a></li>
+            <li><a href="">Seasoning and Spice</a></li>
+            <li><a href="">Vegetables</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
+          <a href="" class="search-col"><i class="fas fa-search"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,56 @@
+<div class="content-wrap">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <h2>Shopping Cart</h2>
+        <ng-container *ngIf="cart$ | async as cart">
+          <p>
+            You have {{cart.totalItemCount}} items in your shopping cart. <button
+            *ngIf="cart.items.length"
+            (click)="clearCart()"
+            class="btn btn-light btn-sm">
+            Clear Cart
+          </button>
+          </p>
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th scope="col">Product Image</th>
+              <th scope="col">Product Title</th>
+              <th scope="col" class="text-center" style="width:250px">Quanity</th>
+              <th scope="col" class="text-right">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of cart.items">
+              <td><img style="max-width: 100px;max-height: 100px" src="{{item.imageUrl}}" alt="{{item.title}}"></td>
+              <td>{{item.title}}</td>
+              <td class="text-center">
+                <app-product-quantity
+                  [shopping-cart]="cart"
+                  [product]="item">
+                </app-product-quantity>
+              </td>
+              <td class="text-right">{{item.totalPrice | currency: 'USD': 'symbol-narrow'}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2">
+                  <a
+                    *ngIf="cart.items.length"
+                    routerLink="/check-out"
+                    class="btn btn-primary btn-sm">
+                    Check Out
+                  </a>
+                </td>
+                <th class="text-right">Total Price: </th>
+                <th class="text-right">{{cart.totalPrice | currency: 'USD': 'symbol-narrow'}}</th>
+              </tr>
+            </tfoot>
+          </table>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
